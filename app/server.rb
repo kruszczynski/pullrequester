@@ -2,7 +2,6 @@
 
 require 'dotenv/load'
 require 'sinatra'
-require 'sequel'
 require './app/storage'
 
 module PullRequester
