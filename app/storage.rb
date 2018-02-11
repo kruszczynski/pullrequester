@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'sequel'
+require './app/models/project'
 
 module PullRequester
   class Storage
@@ -10,6 +11,10 @@ module PullRequester
 
     def all_projects
       @db[:projects].all
+    end
+
+    def find_project(uuid)
+      @db[:projects].where(uuid: uuid).first
     end
   end
 end
