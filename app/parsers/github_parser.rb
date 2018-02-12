@@ -8,7 +8,7 @@ module PullRequester
       Result.new(
         payload.dig('pull_request', 'user', 'login'),
         payload.dig('pull_request', 'title'),
-        payload.dig('pull_request', 'url'),
+        payload.dig('pull_request', 'html_url'),
         payload.dig('pull_request', 'id')
       )
     end
