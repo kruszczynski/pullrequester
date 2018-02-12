@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require './app/parsers/github_parser'
+require './app/notifiers/slack_notifier'
 
 module PullRequester
   class WebhookAction
@@ -16,9 +17,19 @@ module PullRequester
       reviewers = @storage.find_reviewers_for_project(project[:id])
       notifiable_reviewers = reviewers.exclude(github_name: @payload.author)
       notifiable_reviewers.each do |reviewer|
-
+        send_slack_notification(reviewer)
       end
       Result.new(@project)
+    end
+
+    private
+
+    def send_slack_notification(reviewer)
+      SlackNotifier.new(reviewer[:slack_name]).pull_request_created(
+        title: @payload.title,
+        url: @payload.url,
+        author: @payload.author
+      )
     end
   end
 end
