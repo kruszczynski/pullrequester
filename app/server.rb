@@ -10,7 +10,7 @@ module PullRequester
     set :storage, Storage.new(ENV.fetch('DATABASE_URL'))
 
     get '/' do
-      @index_message = 'Welcome to Pull Requester'
+      @github_client_id = ENV.fetch('GITHUB_CLIENT_ID')
       erb :index
     end
 
